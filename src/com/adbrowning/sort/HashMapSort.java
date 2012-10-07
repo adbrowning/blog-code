@@ -87,7 +87,7 @@ public class HashMapSort {
         }
     }
 
-    public static <K extends Comparable, V> List<V> sort(List<V> toSort, KeyExtractor<V, K> extractor) {
+    public static <K extends Comparable, V> List<V> sort(Collection<V> toSort, KeyExtractor<V, K> extractor) {
         List<V> retVal = new ArrayList<V>(toSort.size());
         List<K> keys = new ArrayList<K>();
         Map<K, List<V>> bucketMap = new HashMap<K, List<V>>();
@@ -108,7 +108,7 @@ public class HashMapSort {
         return retVal;
     }
 
-    public static <K extends Comparable, V extends KeyExtractable<K>> List<V> sort(List<V> toSort) {
+    public static <K extends Comparable, V extends KeyExtractable<K>> List<V> sort(Collection<V> toSort) {
         return sort(toSort, new ExtractableExtractor<V, K>());
     }
 
