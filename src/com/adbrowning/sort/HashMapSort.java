@@ -11,10 +11,16 @@ public class HashMapSort {
         char[] chars = new char[2];
         String[] codes = new String[50];
         Random rand = new Random();
+        HashSet<String> generatedCodes = new HashSet<String>();
         for(int i = 0; i < codes.length; ++i) {
-            chars[0] = (char) ('A' + rand.nextInt(26));
-            chars[1] = (char) ('A' + rand.nextInt(26));
-            codes[i] = String.valueOf(chars);
+            String code;
+            do {
+                chars[0] = (char) ('A' + rand.nextInt(26));
+                chars[1] = (char) ('A' + rand.nextInt(26));
+                code = String.valueOf(chars);
+            } while(generatedCodes.contains(code));
+            codes[i] = code;
+            generatedCodes.add(code);
         }
 
         List<SimpleExtractable> extractables = new ArrayList<SimpleExtractable>(NUM_RECORDS);
@@ -23,7 +29,7 @@ public class HashMapSort {
         }
 
         System.out.println("Running warmup");
-        int NUM_OPTIMIZATION_ITERATIONS = 10000;
+        int NUM_OPTIMIZATION_ITERATIONS = 10001;
         List<SimpleExtractable> toSort = new ArrayList<SimpleExtractable>(extractables);
         for(int i = 0; i < NUM_OPTIMIZATION_ITERATIONS; ++i) {
             sort(extractables);
